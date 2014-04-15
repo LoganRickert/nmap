@@ -29,7 +29,7 @@ def main():
                       help="IP range to scan. Valid formats are 1.1.1.1, 1.1.1.0-255, and 1.1.1.*")
 
     parser.add_option("-f", "--firewall", dest="firewall", action="store_true",
-                      help="")
+                      help="checks for possible existence of firewall")
 
 if __name__ == "__main__":
     main()

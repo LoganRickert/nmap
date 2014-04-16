@@ -36,9 +36,12 @@ def main():
                       help="Specify the port or port range to scan")
 
     #TODO: get IP range
-    parser.add_option("-t", dest="ip_range", action="store", type="string",
+    parser.add_option("-n", dest="ip_range", action="store", type="string",
                       help="IP range to scan. Valid formats are 1.1.1.1, 1.1.1.0-255, and 1.1.1.*")
 
+    #TODO: add TCP port list
+    parser.add_option("-t", "--tcp-ports-only", action="store_true",
+                      dest="tcp_ports", help="Use this option to only scan top TCP ports")
 
     #Fragmentation
     parser.add_option("-f", "--firewall", dest="firewall", action="store_true",
@@ -48,11 +51,22 @@ def main():
     #adding argv and argc from  parser.parse_args()
     (options, args) = parser.parse_args()
 
+    #if they want to scan the local net...
     if options.localnet:
-        if options.iface == None:
+        if options.iface is None:
             print("[*] Using default interface, none specified")
-        import scn_driver
+        try:
+            import scn_driver
+        except ImportError, ie:
+            print("[--] CRITICAL: import error, cannot locate scn_driver.py")
+            exit(0b101)
+
         scn = scn_driver.scanner()
+        scn.getLoIP(options.iface)
+        if options.port_range is None:
+            beginningPort = 1
+            endPort=444
+
 
 
 

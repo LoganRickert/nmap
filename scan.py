@@ -23,7 +23,6 @@ def main():
     from optparse import OptionParser
     parser = OptionParser()
 
-    #TODO: set IP to local address
     parser.add_option("-l", "--local-net", dest="localnet",
                       action="store_true", default="False",
                       help="Use this option to scan the local network")
@@ -48,13 +47,14 @@ def main():
 
     #adding argv and argc from  parser.parse_args()
     (options, args) = parser.parse_args()
-    if len(args) == 0:
-        print help
-        exit(0b1)
 
     if options.localnet:
-        import scn_driver as scn
-        scn.scanner.getLoIP()
+        if options.iface == None:
+            print("[*] Using default interface, none specified")
+        import scn_driver
+        scn = scn_driver.scanner()
+
+
 
 
 if __name__ == "__main__":

@@ -4,6 +4,8 @@ get an immediate report of all vulnerable services running
 on a host, or hosts.
 
 The module has three stages:
+
+
 1. Discovery:
     Using python nmap to detect firewalls, discover hosts
     and store semi-stateful information about services

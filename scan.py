@@ -61,8 +61,13 @@ def main():
             print("[--] CRITICAL: import error, cannot locate scn_driver.py")
             exit(0b101)
 
+        #initializing scanner object
         scn = scn_driver.scanner()
+        
+        #getting local network IP of the specified interface
         scn.getLoIP(options.iface)
+        
+        #Temporary conditional
         if options.port_range is None:
             beginningPort = 1
             endPort=444

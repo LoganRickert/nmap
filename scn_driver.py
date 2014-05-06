@@ -9,13 +9,12 @@ class scanner:
 
     def getLoIP(self, device):
 
-        if device == None:
-            import netifaces
-            device = netifaces.interfaces()[2]
         try:
             print("[*] obtaining network IP address on device: %s" % device)
             import netifaces
 
+            if(device is None):
+                device = netifaces.interfaces()[2]
             #getting interface list
             ifaces = netifaces.ifaddresses(device)
 
@@ -28,8 +27,10 @@ class scanner:
             print("[+] Local IP is: %s" % str(ipv4_addr))
             return ipv4_addr
         except Exception, ex:
-            print "[--] CRITICAL ERROR: %s" % ex
-            exit(0b100)
+            print "[-] CRITICAL ERROR: %s" % ex
+            print("\tAre you using the right interface?")
+            exit(0b101)
+
     def get_ports(self, ports):
         ports = str(ports)
         if ports.__contains__("-"):
@@ -40,9 +41,9 @@ class scanner:
 
             #testing to see
             if len(portList) < 2:
-                print("[--] CRITICAL: invalid port argument length.")
+                print("[-] CRITICAL: invalid port argument length.")
             if portList[0] or portList[1] is not int:
-                print("[--] CRITICAL: Ports specified must be integers.")
+                print("[-] CRITICAL: Ports specified must be integers.")
                 exit(0b111)
 
 

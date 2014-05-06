@@ -10,7 +10,7 @@ def main():
     except ImportError, ex:
 
         print("FATAL: Must have python-nmap installed\n"
-              "aptitude> sudo apt-get install python-nmap")
+              "for your best linux experience > sudo apt-get install python-nmap")
         exit(0)
     print("[*] Loading optparse libs")
 
@@ -54,7 +54,7 @@ def main():
     #if they want to scan the local net...
     if options.localnet:
         if options.iface is None:
-            print("[*] Using default interface, none specified")
+            print("[*] Using default interface [\"wlan0\"], none specified")
         try:
             import scn_driver
         except ImportError, ie:

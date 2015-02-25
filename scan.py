@@ -11,6 +11,14 @@ def main():
 
         print("FATAL: Must have python-nmap installed\n"
               "for your best linux experience > sudo apt-get install python-nmap")
+
+#        print("Attempt to download python nmap? (Y/N)")
+#        ans = input()
+#        print(str(ans))
+
+##
+# NOT IMPLEMENTED YET
+##
         exit(0)
     print("[*] Loading optparse libs")
 
@@ -55,6 +63,10 @@ def main():
     if options.localnet:
         if options.iface is None:
             print("[*] Using default interface [\"wlan0\"], none specified")
+        else:
+            print("Attempting to use device [\"" + options.iface + "\"]...")
+            #TODO add CLI flag for specific device
+            return
         try:
             import scn_driver
         except ImportError, ie:

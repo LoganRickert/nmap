@@ -8,13 +8,11 @@ class scanner:
         self.nmapScannerObj = nm.PortScannerAsync()
 
     def getLoIP(self, device):
-
         try:
-            print("[*] obtaining network IP address on device: %s" % device)
             import netifaces
-
             if(device is None):
                 device = netifaces.interfaces()[2]
+            print("[*] obtaining network IP address on device: %s" % device)
             #getting interface list
             ifaces = netifaces.ifaddresses(device)
 

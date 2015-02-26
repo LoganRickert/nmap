@@ -27,7 +27,7 @@ def main():
         Usage: ./scan.py [options] [host]
         NOTE! -l option requires avahi-daemon
     """
-
+    cli_args = ""
     from optparse import OptionParser
     parser = OptionParser()
 
@@ -65,8 +65,7 @@ def main():
             print("[*] Using default interface [\"wlan0\"], none specified")
         else:
             print("Attempting to use device [\"" + options.iface + "\"]...")
-            #TODO add CLI flag for specific device
-            return
+            cli_args += "--interface " + options.iface
         try:
             import scn_driver
         except ImportError, ie:

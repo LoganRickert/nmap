@@ -26,6 +26,7 @@ class scanner:
             return ipv4_addr
         except Exception, ex:
             print "[-] CRITICAL ERROR: %s" % ex
+            print "\tIs the interface up?"
             print("\tAre you using the right interface?")
             exit(0b101)
 

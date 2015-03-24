@@ -5,7 +5,7 @@ class scanner:
     def __init__(self):
 
         import nmap as nm
-        self.nmapScannerObj = nm.PortScannerAsync()
+        self.nmapScannerObj = nm.PortScanner()
 
     def getLoIP(self, device):
         try:
@@ -45,4 +45,11 @@ class scanner:
                 print("[-] CRITICAL: Ports specified must be integers.")
                 exit(0b111)
 
-
+    def startScan(self, infclsObj):
+      #just to test that this whole thing works...
+      self.nmapScannerObject.scan(hosts=infclsObj.getHosts(), arguments=infclsObj.getArgs())
+      while self.nmapScannerObject.still_scanning():
+        print "Scanning..... please wait"
+      #just fucking off a bit, printing the hosts to make sure it works
+      for host in scanned_hosts:
+        print host

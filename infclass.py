@@ -1,5 +1,5 @@
 class infocls:
-  _HASHLIB_MD5
+  _HASHLIB_MD5 = None
   try:
     import hashlib
     _HASHLIB_MD5 = hashlib.md5()
@@ -37,4 +37,8 @@ class infocls:
     else:
       self.devAddrPair.insert(pair)
       #this mayhaps wont work... probably not...
-    
+  def getArgs():
+    return '-sV'
+
+  def getHosts():
+    return '8.8.8.8'

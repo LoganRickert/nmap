@@ -35,7 +35,6 @@ def main():
                       action="store_true", default="False",
                       help="Use this option to scan the local network")
 
-    #TODO: Look up interface specification
     parser.add_option("-i", "--interface", dest="iface", action="store", type="string",
                       help="Specify the interface to use i.e. wlan0, eth0...")
 
@@ -82,7 +81,10 @@ def main():
         if options.port_range is None:
             beginningPort = 1
             endPort=444
+        import infclass
+        a = infclass.infocls(cli_args)
 
+        scn.startScan(a)
 
 
 

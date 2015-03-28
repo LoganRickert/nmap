@@ -1,25 +1,13 @@
+import subprocess
 __author__ = 'eatsapizza'
 
 
 def main():
     from optparse import OptionParser
-    try:
-        import nmap
-        print("[+] Got python-nmap")
 
-    except ImportError, ex:
-
-        print("FATAL: Must have python-nmap installed\n"
-              "for your best linux experience > sudo apt-get install python-nmap")
-
-#        print("Attempt to download python nmap? (Y/N)")
-#        ans = input()
-#        print(str(ans))
-
-##
-# NOT IMPLEMENTED YET
-##
-        exit(0)
+    # Checks to make sure nmap is install on the machine. (Linux only)
+    check_for_nmap()
+        
     print("[*] Loading optparse libs")
 
     help = """
@@ -86,9 +74,54 @@ def main():
 
         scn.startScan(a)
 
+def check_for_nmap():
+    """ Checks to make sure nmap is installed on the machine. 
+    If it is not, ask the user if they wish to install it and run the
+    command 'sudo apt-get install python-nmap'.
+    """
+    try:
+        import nmap
+        print("[+] Got python-nmap")
 
+    except ImportError, ex:
+        print("FATAL: Must have python-nmap installed\n"
+              "for your best linux experience > sudo apt-get install python-nmap")
 
+        ans = raw_input("Attempt to download python nmap? (Y/N): ")
+
+        # If they answered yes, attempt to install nmap, else exit.
+        if ans.upper() == "Y":
+            install_nmap()
+        elif ans.upper() == "YES":
+            install_nmap()
+        else:
+            print("Quiting program...")
+            exit(0)
+
+def install_nmap():
+    """ Attempt to install nmap through Bash.
+    """
+    print("Attempting to install nmap...")
+
+    process = subprocess.Popen("sudo apt-get install python-nmap", shell=True)
+    print("Installing...")
+    process.wait()
+
+    # If the subprocess had an error, tell the user and ask if they want to retry.
+    if process.returncode != 0:
+        print("Operation was not successful!\n")
+
+        ans = raw_input("Would you like to try again? (Y/N): ")
+
+        if ans.upper() == "Y":
+            install_nmap()
+        elif ans.upper() == "YES":
+            install_nmap()
+        else:
+            print("Quiting program...")
+            exit(0)
+
+    print("Successful.")
 
 if __name__ == "__main__":
     main()
-

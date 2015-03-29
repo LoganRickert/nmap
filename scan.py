@@ -84,7 +84,7 @@ def check_for_python_nmap():
     """
     try:
         import nmap
-        print("[+] Got python-nmap")
+        print("[+] python-nmap is installed.")
 
     except ImportError, ex:
         print("[-] FATAL: Must have python-nmap installed\n"
@@ -125,6 +125,32 @@ def install_python_nmap():
             exit(0)
 
     print("[+] Successfully installed python-nmap.")
+
+def check_for_nmap():
+    """ Checks to see if nmap is installed. If it's not, ask if they would
+    like to install it.
+    """
+    print("[*] Checking for nmap...")
+
+    process = subprocess.Popen("nmap -V > /dev/null", shell=True)
+    print("[*] Installing...")
+    process.wait()
+
+    # If the subprocess had an error, tell the user and ask if they want to retry.
+    if process.returncode != 0:
+        print("[-] Operation was not successful!\n")
+
+        ans = raw_input("Would you like to try again? (Y/N): ")
+
+        if ans.upper() == "Y":
+            install_python_nmap()
+        elif ans.upper() == "YES":
+            install_python_nmap()
+        else:
+            print("[-] Quiting program...")
+            exit(0)
+    else:
+        print("[+] nmap is installed.")
 
 if __name__ == "__main__":
     main()

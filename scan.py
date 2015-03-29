@@ -106,6 +106,7 @@ def install_python_nmap():
     """
     print("[*] Attempting to install python-nmap...")
 
+    # Warning: Do not pass user input into this Popen with shell=True.
     process = subprocess.Popen("sudo apt-get install python-nmap", shell=True)
     print("[*] Installing...")
     process.wait()
@@ -132,6 +133,7 @@ def check_for_nmap():
     """
     print("[*] Checking for nmap...")
 
+    # Warning: Do not pass user input into this Popen with shell=True.
     process = subprocess.Popen("nmap -V > /dev/null", shell=True)
     process.wait()
 
@@ -169,6 +171,7 @@ def install_nmap():
     """
     print("[*] Attempting to install nmap...")
 
+    # Warning: Do not pass user input into this Popen with shell=True.
     process = subprocess.Popen("sudo apt-get install nmap", shell=True)
     print("[*] Installing...")
     process.wait()

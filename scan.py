@@ -102,7 +102,7 @@ def check_for_python_nmap():
             exit(0)
 
 def install_python_nmap():
-    """ Attempt to install nmap through Bash.
+    """ Attempt to install python nmap.
     """
     print("[*] Attempting to install python-nmap...")
 
@@ -133,6 +133,43 @@ def check_for_nmap():
     print("[*] Checking for nmap...")
 
     process = subprocess.Popen("nmap -V > /dev/null", shell=True)
+    process.wait()
+
+    # If the subprocess had an error, tell the user and ask if they want to retry.
+    if process.returncode == 127:
+        print("[-] FATAL: Must have nmap installed\n"
+              "for your best linux experience > sudo apt-get install nmap")
+
+        ans = raw_input("Attempt to download nmap? (Y/N): ")
+
+        if ans.upper() == "Y":
+            install_nmap()
+        elif ans.upper() == "YES":
+            install_nmap()
+        else:
+            print("[-] Quiting program...")
+            exit(0)
+    elif process.returncode != 0:
+        print("[-] Operation was not successful!\n")
+
+        ans = raw_input("Would you like to try again? (Y/N): ")
+
+        if ans.upper() == "Y":
+            check_for_nmap()
+        elif ans.upper() == "YES":
+            check_for_nmap()
+        else:
+            print("[-] Quiting program...")
+            exit(0)
+    else:
+        print("[+] nmap is installed.")
+
+def install_nmap():
+    """ Attempt to install nmap
+    """
+    print("[*] Attempting to install nmap...")
+
+    process = subprocess.Popen("sudo apt-get install nmap", shell=True)
     print("[*] Installing...")
     process.wait()
 
@@ -143,14 +180,14 @@ def check_for_nmap():
         ans = raw_input("Would you like to try again? (Y/N): ")
 
         if ans.upper() == "Y":
-            install_python_nmap()
+            install_nmap()
         elif ans.upper() == "YES":
-            install_python_nmap()
+            install_nmap()
         else:
             print("[-] Quiting program...")
             exit(0)
-    else:
-        print("[+] nmap is installed.")
+
+    print("[+] Successfully installed python-nmap.")
 
 if __name__ == "__main__":
     main()

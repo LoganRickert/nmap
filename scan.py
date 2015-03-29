@@ -138,6 +138,7 @@ def check_for_nmap():
     process.wait()
 
     # If the subprocess had an error, tell the user and ask if they want to retry.
+    # 127 = command not found.
     if process.returncode == 127:
         print("[-] FATAL: Must have nmap installed\n"
               "for your best linux experience > sudo apt-get install nmap")

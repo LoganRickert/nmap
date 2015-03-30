@@ -134,6 +134,8 @@ def check_for_nmap():
     print("[*] Checking for nmap...")
 
     # Warning: Do not pass user input into this Popen with shell=True.
+    # -V gets the version number. If command fails with a 127, it needs
+    # to be installed.
     process = subprocess.Popen("nmap -V > /dev/null", shell=True)
     process.wait()
 
@@ -191,7 +193,7 @@ def install_nmap():
             print("[-] Quiting program...")
             exit(0)
 
-    print("[+] Successfully installed python-nmap.")
+    print("[+] Successfully installed nmap.")
 
 if __name__ == "__main__":
     main()
